@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>STM32 OTA Deployment</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        input { width: 80%; padding: 10px; margin-bottom: 20px; }
+        #qr-canvas { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h2>STM32 OTA Update Portal</h2>
+    <p>Paste the "Raw" GitHub Link of your .bin file:</p>
+    <input type="text" id="urlInput" placeholder="https://raw.githubusercontent.com/user/repo/main/firmware.bin">
+    <br>
+    <button onclick="generateQR()">Generate QR & Link</button>
+    <br>
+    <canvas id="qr-canvas"></canvas>
+    <p id="status"></p>
+
+    <script>
+        function generateQR() {
+            const url = document.getElementById('urlInput').value;
+            if(!url) return alert("Please enter a URL");
+            
+            new QRious({
+                element: document.getElementById('qr-canvas'),
+                size: 250,
+                value: url
+            });
+            document.getElementById('status').innerText = "ESP32 can now scan or fetch from this URL.";
+        }
+    </script>
+</body>
+</html>
